@@ -1,28 +1,24 @@
 name: Run Python Tests
 
-# When to run
 on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        # This pulls repo code into the GitHub VM
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-        # This installs Python 3.10 in the GitHub VM
 
-      - name: Install dependencies
+      # Install pytest directly instead of requirements.txt
+      - name: Install pytest
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-        # Installs pytest (from requirements.txt)
+          pip install pytest
 
       - name: Run tests
         run: pytest
-        # Executes all test_*.py files
